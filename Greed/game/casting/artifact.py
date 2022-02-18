@@ -1,6 +1,6 @@
 from game.casting.actor import Actor
 
-
+# This class needs to be able to handle the points.
 class Artifact(Actor):
     """
     An item of cultural or historical interest. 

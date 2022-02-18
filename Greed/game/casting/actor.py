@@ -21,8 +21,10 @@ class Actor:
         self._text = ""
         self._font_size = 15
         self._color = Color(255, 255, 255)
-        self._position = Point(0, 0)
+        self._y_position = 0
+        self._position = Point(0, self._y_position)
         self._velocity = Point(0, 0)
+        self._gem_velocity = Point(0,0)
 
     def get_color(self):
         """Gets the actor's color as a tuple of three ints (r, g, b).
@@ -73,7 +75,7 @@ class Actor:
             max_y (int): The maximum y value.
         """
         x = (self._position.get_x() + self._velocity.get_x()) % max_x
-        y = (self._position.get_y() + self._velocity.get_y()) % max_y
+        y = max_y / 0.9 #(self._position.get_y() + self._velocity.get_y()) % max_y
         self._position = Point(x, y)
 
     def set_color(self, color):
