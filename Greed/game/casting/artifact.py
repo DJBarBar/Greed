@@ -14,18 +14,24 @@ class Artifact(Actor):
         super().__init__()
         self._message = ""
         
-    def get_message(self):
+    def get_points(self, gems):
         """Gets the artifact's message.
         
         Returns:
             string: The message.
-        """
-        return self._message
+        """ 
+            #  Setting up the score, if robot touch a gem pass true for gems amd false for rock    
+        if gems == True:
+            self._points += 1
+        else:
+            self._points -= 1
+           
+        return self._points
     
-    def set_message(self, message):
-        """Updates the message to the given one.
+    # def set_message(self, message):
+    #     """Updates the message to the given one.
         
-        Args:
-            message (string): The given message.
-        """
-        self._message = message
+    #     Args:
+    #         message (string): The given message.
+    #     """
+    #     self._message = message
