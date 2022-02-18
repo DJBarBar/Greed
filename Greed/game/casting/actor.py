@@ -24,7 +24,7 @@ class Actor:
         self._y_position = 0
         self._position = Point(0, self._y_position)
         self._velocity = Point(0, 0)
-        self._gem_velocity = Point(0,0)
+        self._gem_velocity = Point(0,-1)
 
     def get_color(self):
         """Gets the actor's color as a tuple of three ints (r, g, b).
