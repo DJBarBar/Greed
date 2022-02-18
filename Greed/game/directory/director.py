@@ -60,7 +60,7 @@ class Director:
             if robot.get_position().equals(artifact.get_position()):
                 message = artifact.get_message()
                 banner.set_text(message)    
-        
+        """ y value needs to be set for game"""
     def _do_outputs(self, cast):
         """Draws the actors on the screen.
         
@@ -71,3 +71,5 @@ class Director:
         actors = cast.get_all_actors()
         self._video_service.draw_actors(actors)
         self._video_service.flush_buffer()
+
+        """resets screen if points =>0 game closses tkinter open and says game over screen resets """
