@@ -1,4 +1,6 @@
 import pyray
+import tkinter as tk
+from tkinter import *
 
 
 class VideoService:
@@ -110,3 +112,8 @@ class VideoService:
 
     def _game_over(self):
         """Displays a game over screen."""
+        root = tk.Tk()
+        T = tk.Label(root, text="Game Over!", height=5, width=25, font=("Arial", 60), fg="red", bg="black")
+        T.pack()
+        T.after(3000, lambda:root.destroy())
+        tk.mainloop()
