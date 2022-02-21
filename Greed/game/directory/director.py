@@ -72,4 +72,4 @@ class Director:
         self._video_service.draw_actors(actors)
         self._video_service.flush_buffer()
 
-        """resets screen if points =>0 game closses tkinter open and says game over screen resets """
+        """resets screen if points =>0 game closses tkinter open and says game over then screen resets """
