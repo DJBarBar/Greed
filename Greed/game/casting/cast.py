@@ -7,7 +7,7 @@ class Cast:
     Attributes:
         _actors (dict): A dictionary of actors { key: group_name, value: a list of actors }
     """
-    """cast organize artifact two categories + - """
+    """comment"""
 
     def __init__(self):
         """Constructs a new Actor."""
