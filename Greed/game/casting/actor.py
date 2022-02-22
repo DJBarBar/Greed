@@ -21,8 +21,7 @@ class Actor:
         self._text = ""
         self._font_size = 15
         self._color = Color(255, 255, 255)
-        self._y_position = 0
-        self._position = Point(0, self._y_position)
+        self._position = Point(0, 0)
         self._velocity = Point(0, 0)
         self._gem_velocity = Point(0,-1)
 
@@ -66,6 +65,14 @@ class Actor:
         """
         return self._velocity
     
+    def get_gem_velocity(self):
+        """Updates the gem velocity to the requisite one.
+        
+        Args: 
+            gem_velocity (point): The stable velocity.
+        """
+        return self._gem_velocity
+
     def move_next(self, max_x, max_y):
         """Moves the actor to its next position according to its velocity. Will wrap the position 
         from one side of the screen to the other when it reaches the given maximum x and y values.
@@ -75,9 +82,21 @@ class Actor:
             max_y (int): The maximum y value.
         """
         x = (self._position.get_x() + self._velocity.get_x()) % max_x
-        y = max_y / 0.9 #(self._position.get_y() + self._velocity.get_y()) % max_y
+        y = 0 #max_y / 0.9 #(self._position.get_y() + self._velocity.get_y()) % max_y
         self._position = Point(x, y)
-
+    
+    def gem_move_next(self, max_x, max_y):
+        """Moves the actor to its next position according to its velocity. Will wrap the position 
+        from one side of the screen to the other when it reaches the given maximum x and y values.
+        
+        Args:
+            max_x (int): The maximum x value.
+            max_y (int): The maximum y value.
+        """
+        x = (self._position.get_x() + self._velocity.get_x()) % max_x
+        y = (self._position.get_y() + self._gem_velocity.get_y()) % max_y
+        self._position = Point(x, y)
+    
     def set_color(self, color):
         """Updates the color to the given one.
         
@@ -117,3 +136,4 @@ class Actor:
             velocity (Point): The given velocity.
         """
         self._velocity = velocity
+    

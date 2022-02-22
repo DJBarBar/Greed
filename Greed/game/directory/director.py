@@ -1,3 +1,6 @@
+from game.services.video_service import VideoService
+
+
 class Director:
     """A person who directs the game. 
     
@@ -14,9 +17,13 @@ class Director:
         Args:
             keyboard_service (KeyboardService): An instance of KeyboardService.
             video_service (VideoService): An instance of VideoService.
+            game_score (self): An int of the total game score.
         """
         self._keyboard_service = keyboard_service
         self._video_service = video_service
+        self._game_score = 500
+        self._add_score = 10
+        self._sub_score = 50
         
     def start_game(self, cast):
         """Starts the game using the given cast. Runs the main game loop.
@@ -49,20 +56,31 @@ class Director:
         """
         banner = cast.get_first_actor("banners")
         robot = cast.get_first_actor("robots")
-        artifacts = cast.get_actors("artifacts")
-
-        banner.set_text("")
+        gems = cast.get_actors("gems")
+        #rocks = cast.get_actors("rocks")
+        score = self._game_score
+        banner.set_text(f"Score: {score}")
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
         robot.move_next(max_x, max_y)
         
-        for artifact in artifacts:
+        for artifact in gems:
             if robot.get_position().equals(artifact.get_position()):
-                message = artifact.get_message()
-                banner.set_text(message)    
-        """ y value needs to be set for game"""
+                self._game_score += self._add_score
+                banner.set_text(self._game_score)
+
+        # for artifact in gems:
+        #     if robot.get_position().equals(artifact.get_position()):
+        #         self._game_score += self._add_score
+        #         banner.set_text(self._game_score)    
+        # for artifact in rocks:
+        #     if robot.get_position().equals(artifact.get_position()):
+        #         self._game_score -= self._sub_score
+        #         banner.set_text(self._game_score)
+
     def _do_outputs(self, cast):
-        """Draws the actors on the screen.
+        """Draws the actors on the screen. Also determines if the score goes below 0 to terminate
+        the current session with a 'game over.'
         
         Args:
             cast (Cast): The cast of actors.
@@ -71,5 +89,9 @@ class Director:
         actors = cast.get_all_actors()
         self._video_service.draw_actors(actors)
         self._video_service.flush_buffer()
+        if self._game_score <= 0:
+            VideoService.close_window()
+            VideoService._game_over()
+            self.start_game()
 
         """resets screen if points =>0 game closses tkinter open and says game over then screen resets """

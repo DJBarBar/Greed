@@ -22,7 +22,7 @@ class Artifact(Actor):
             string: The message.
         """ 
             #  Setting up the score, if robot touch a gem pass true for gems amd false for rock    
-        if gems == True:
+        if gems == "*":
             self._points += 10
         else:
             self._points -= 50
