@@ -1,6 +1,3 @@
-from game.services.video_service import VideoService
-
-
 class Director:
     """A person who directs the game. 
     
@@ -17,13 +14,10 @@ class Director:
         Args:
             keyboard_service (KeyboardService): An instance of KeyboardService.
             video_service (VideoService): An instance of VideoService.
-            game_score (self): An int of the total game score.
         """
         self._keyboard_service = keyboard_service
         self._video_service = video_service
-        self._game_score = 500
-        self._add_score = 10
-        self._sub_score = 50
+        self._points = 500
         
     def start_game(self, cast):
         """Starts the game using the given cast. Runs the main game loop.
@@ -44,9 +38,9 @@ class Director:
         Args:
             cast (Cast): The cast of actors.
         """
-        robot = cast.get_first_actor("robots")
+        player = cast.get_first_actor("player")
         velocity = self._keyboard_service.get_direction()
-        robot.set_velocity(velocity)        
+        player.set_velocity(velocity)        
 
     def _do_updates(self, cast):
         """Updates the robot's position and resolves any collisions with artifacts.
@@ -54,34 +48,33 @@ class Director:
         Args:
             cast (Cast): The cast of actors.
         """
-        banner = cast.get_first_actor("banners")
-        robot = cast.get_first_actor("robots")
+        banner = cast.get_first_actor("points")
+        player = cast.get_first_actor("player")
         gems = cast.get_actors("gems")
-        #rocks = cast.get_actors("rocks")
-        score = self._game_score
-        banner.set_text(f"Score: {score}")
+        stones = cast.get_actors("stones")
+        points = self._points
+
+        banner.set_text("Points %s" % (points))
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
-        robot.move_next(max_x, max_y)
+        player.move_next(max_x, max_y)
         
-        for artifact in gems:
-            if robot.get_position().equals(artifact.get_position()):
-                self._game_score += self._add_score
-                banner.set_text(self._game_score)
-                artifact.remove_actor()
+        if points == 0:
+            self._video_service.game_over()
+            self._points = 500
 
-        # for artifact in gems:
-        #     if robot.get_position().equals(artifact.get_position()):
-        #         self._game_score += self._add_score
-        #         banner.set_text(self._game_score)    
-        # for artifact in rocks:
-        #     if robot.get_position().equals(artifact.get_position()):
-        #         self._game_score -= self._sub_score
-        #         banner.set_text(self._game_score)
+        for gem in gems:
+            gem.fall(max_y)
+            if player.get_position().equals(gem.get_position()):
+                self._points += 10
+
+        for stone in stones:
+            stone.fall(max_y)
+            if player.get_position().equals(stone.get_position()):
+                self._points -= 50
 
     def _do_outputs(self, cast):
-        """Draws the actors on the screen. Also determines if the score goes below 0 to terminate
-        the current session with a 'game over.'
+        """Draws the actors on the screen.
         
         Args:
             cast (Cast): The cast of actors.
@@ -90,9 +83,3 @@ class Director:
         actors = cast.get_all_actors()
         self._video_service.draw_actors(actors)
         self._video_service.flush_buffer()
-        if self._game_score <= 0:
-            VideoService.close_window()
-            VideoService._game_over()
-            self.start_game()
-
-        """resets screen if points =>0 game closses tkinter open and says game over then screen resets """
