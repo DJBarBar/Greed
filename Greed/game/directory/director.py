@@ -68,6 +68,7 @@ class Director:
             if robot.get_position().equals(artifact.get_position()):
                 self._game_score += self._add_score
                 banner.set_text(self._game_score)
+                artifact.remove_actor()
 
         # for artifact in gems:
         #     if robot.get_position().equals(artifact.get_position()):
