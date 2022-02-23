@@ -1,4 +1,6 @@
 from game.services.video_service import VideoService
+from game.casting.artifact import Artifact
+from game.casting.actor import Actor
 
 
 class Director:
@@ -22,8 +24,6 @@ class Director:
         self._keyboard_service = keyboard_service
         self._video_service = video_service
         self._game_score = 500
-        self._add_score = 10
-        self._sub_score = 50
         
     def start_game(self, cast):
         """Starts the game using the given cast. Runs the main game loop.
@@ -46,7 +46,7 @@ class Director:
         """
         robot = cast.get_first_actor("robots")
         velocity = self._keyboard_service.get_direction()
-        robot.set_velocity(velocity)        
+        robot.set_velocity(velocity)   
 
     def _do_updates(self, cast):
         """Updates the robot's position and resolves any collisions with artifacts.
@@ -57,18 +57,25 @@ class Director:
         banner = cast.get_first_actor("banners")
         robot = cast.get_first_actor("robots")
         gems = cast.get_actors("gems")
-        #rocks = cast.get_actors("rocks")
         score = self._game_score
         banner.set_text(f"Score: {score}")
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
         robot.move_next(max_x, max_y)
-        
+
         for artifact in gems:
+            artifact.move_next(max_x, max_y)
             if robot.get_position().equals(artifact.get_position()):
-                self._game_score += self._add_score
-                banner.set_text(self._game_score)
-                artifact.remove_actor()
+                if artifact == "*":
+                    self._game_score += 10 
+                    banner.set_text(f"Score:{self._game_score}")
+                    artifact.remove_actor()
+                else:
+                    self._game_score -= 50
+                    banner.set_text(f"Score:{self._game_score}")
+                    artifact.remove_actor()
+            if gems.get_position().equals(max_y):
+                artifact.remove_actor
 
         # for artifact in gems:
         #     if robot.get_position().equals(artifact.get_position()):
@@ -94,5 +101,3 @@ class Director:
             VideoService.close_window()
             VideoService._game_over()
             self.start_game()
-
-        """resets screen if points =>0 game closses tkinter open and says game over then screen resets """

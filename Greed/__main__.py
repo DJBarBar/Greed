@@ -1,5 +1,6 @@
 import os
 import random
+import time
 
 from game.casting.actor import Actor
 from game.casting.artifact import Artifact
@@ -17,8 +18,8 @@ from game.shared.point import Point
 FRAME_RATE = 12
 MAX_X = 900
 MAX_Y = 600
-CELL_SIZE = 15
-FONT_SIZE = 15
+CELL_SIZE = 20
+FONT_SIZE = 20
 COLS = 60
 ROWS = 40
 CAPTION = "Greed"
@@ -42,7 +43,7 @@ def main():
     
     # create the robot
     x = int(MAX_X / 2)
-    y = int(MAX_Y - 2)
+    y = int(MAX_Y - 30)
     position = Point(x, y)
 
     robot = Actor()
@@ -51,29 +52,18 @@ def main():
     robot.set_color(WHITE)
     robot.set_position(position)
     cast.add_actor("robots", robot)
-    
-    # create the artifacts
-    # with open(DATA_PATH) as file:
-    #     data = file.read()
-    #     messages = data.splitlines()
-    
+
     for n in range(DEFAULT_ARTIFACTS):
         text = (random.randint(1, 100))
         if text > 40:
             text = "*"
         else:
             text = chr(random.randint(33, 126))
-        #text = chr(random.randint(33, 126))
-        #message = messages[n]
 
         x = random.randint(1, COLS - 1)
         y = 2 #random.randint(1, ROWS - 1)
         position = Point(x, y)
         position = position.scale(CELL_SIZE)
-
-        a = 0
-        b = -1
-        velocity = Point(a, b)
 
         r = random.randint(0, 255)
         g = random.randint(0, 255)
@@ -85,8 +75,6 @@ def main():
         artifact.set_font_size(FONT_SIZE)
         artifact.set_color(color)
         artifact.set_position(position)
-        artifact.get_gem_velocity()
-#        artifact.set_message(message)
         cast.add_actor("artifacts", artifact)
     
     # start the game

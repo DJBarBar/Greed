@@ -23,7 +23,7 @@ class Actor:
         self._color = Color(255, 255, 255)
         self._position = Point(0, 0)
         self._velocity = Point(0, 0)
-        self._gem_velocity = Point(0,-1)
+        self.gem_velocity = Point(0,-1)
 
     def get_color(self):
         """Gets the actor's color as a tuple of three ints (r, g, b).
@@ -82,19 +82,7 @@ class Actor:
             max_y (int): The maximum y value.
         """
         x = (self._position.get_x() + self._velocity.get_x()) % max_x
-        y = 0 #max_y / 0.9 #(self._position.get_y() + self._velocity.get_y()) % max_y
-        self._position = Point(x, y)
-    
-    def gem_move_next(self, max_x, max_y):
-        """Moves the actor to its next position according to its velocity. Will wrap the position 
-        from one side of the screen to the other when it reaches the given maximum x and y values.
-        
-        Args:
-            max_x (int): The maximum x value.
-            max_y (int): The maximum y value.
-        """
-        x = (self._position.get_x() + self._velocity.get_x()) % max_x
-        y = (self._position.get_y() + self._gem_velocity.get_y()) % max_y
+        y = (self._position.get_y() + self._velocity.get_y()) % max_y
         self._position = Point(x, y)
     
     def set_color(self, color):
