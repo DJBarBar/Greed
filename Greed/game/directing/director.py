@@ -59,8 +59,8 @@ class Director:
         max_y = self._video_service.get_height()
         player.move_next(max_x, max_y)
         
-        if points == 0:
-            self._video_service.game_over()
+        if points <= 0:
+            self._video_service._game_over()
             self._points = 500
 
         for gem in gems:
