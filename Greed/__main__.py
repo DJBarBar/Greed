@@ -1,5 +1,6 @@
 import os
 import random
+import time
 
 from game.casting.actor import Actor
 from game.casting.gems import Gem
@@ -18,8 +19,8 @@ from game.shared.point import Point
 FRAME_RATE = 12
 MAX_X = 900
 MAX_Y = 600
-CELL_SIZE = 15
-FONT_SIZE = 15
+CELL_SIZE = 20
+FONT_SIZE = 20
 COLS = 60
 ROWS = 40
 CAPTION = "Greed"
@@ -45,6 +46,7 @@ def main():
     
     # create the robot
     x = int(MAX_X / 2)
+<<<<<<< HEAD
     y = 570
     position = Point(x, y)
 
@@ -57,12 +59,31 @@ def main():
 
 
     for n in range(GEM_COUNT):
+=======
+    y = int(MAX_Y - 30)
+    position = Point(x, y)
+
+    robot = Actor()
+    robot.set_text("#")
+    robot.set_font_size(FONT_SIZE)
+    robot.set_color(WHITE)
+    robot.set_position(position)
+    cast.add_actor("robots", robot)
+
+    for n in range(DEFAULT_ARTIFACTS):
+        text = (random.randint(1, 100))
+        if text > 40:
+            text = "*"
+        else:
+            text = chr(random.randint(33, 126))
+>>>>>>> 7cd9b2465c232089094eca25dcb7ef0a0e293592
 
         x = random.randint(1, COLS - 1)
         y = random.randint(1, ROWS - 1)
         position = Point(x, y)
         position = position.scale(CELL_SIZE)
 
+<<<<<<< HEAD
         gems = Gem()
         gems.set_text('*')
         gems.set_font_size(FONT_SIZE)
@@ -83,6 +104,19 @@ def main():
         stones.set_color(RED)
         stones.set_position(position)
         cast.add_actor("stones", stones)
+=======
+        r = random.randint(0, 255)
+        g = random.randint(0, 255)
+        b = random.randint(0, 255)
+        color = Color(r, g, b)
+        
+        artifact = Artifact()
+        artifact.set_text(text)
+        artifact.set_font_size(FONT_SIZE)
+        artifact.set_color(color)
+        artifact.set_position(position)
+        cast.add_actor("artifacts", artifact)
+>>>>>>> 7cd9b2465c232089094eca25dcb7ef0a0e293592
     
     # start the game
     keyboard_service = KeyboardService(CELL_SIZE)

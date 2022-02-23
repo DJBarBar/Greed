@@ -1,3 +1,11 @@
+<<<<<<< HEAD:Greed/game/directing/director.py
+=======
+from game.services.video_service import VideoService
+from game.casting.artifact import Artifact
+from game.casting.actor import Actor
+
+
+>>>>>>> 7cd9b2465c232089094eca25dcb7ef0a0e293592:Greed/game/directory/director.py
 class Director:
     """A person who directs the game. 
     
@@ -17,7 +25,11 @@ class Director:
         """
         self._keyboard_service = keyboard_service
         self._video_service = video_service
+<<<<<<< HEAD:Greed/game/directing/director.py
         self._points = 500
+=======
+        self._game_score = 500
+>>>>>>> 7cd9b2465c232089094eca25dcb7ef0a0e293592:Greed/game/directory/director.py
         
     def start_game(self, cast):
         """Starts the game using the given cast. Runs the main game loop.
@@ -40,7 +52,11 @@ class Director:
         """
         player = cast.get_first_actor("player")
         velocity = self._keyboard_service.get_direction()
+<<<<<<< HEAD:Greed/game/directing/director.py
         player.set_velocity(velocity)        
+=======
+        robot.set_velocity(velocity)   
+>>>>>>> 7cd9b2465c232089094eca25dcb7ef0a0e293592:Greed/game/directory/director.py
 
     def _do_updates(self, cast):
         """Updates the robot's position and resolves any collisions with artifacts.
@@ -51,6 +67,7 @@ class Director:
         banner = cast.get_first_actor("points")
         player = cast.get_first_actor("player")
         gems = cast.get_actors("gems")
+<<<<<<< HEAD:Greed/game/directing/director.py
         stones = cast.get_actors("stones")
         points = self._points
 
@@ -62,6 +79,27 @@ class Director:
         if points == 0:
             self._video_service.game_over()
             self._points = 500
+=======
+        score = self._game_score
+        banner.set_text(f"Score: {score}")
+        max_x = self._video_service.get_width()
+        max_y = self._video_service.get_height()
+        robot.move_next(max_x, max_y)
+
+        for artifact in gems:
+            artifact.move_next(max_x, max_y)
+            if robot.get_position().equals(artifact.get_position()):
+                if artifact == "*":
+                    self._game_score += 10 
+                    banner.set_text(f"Score:{self._game_score}")
+                    artifact.remove_actor()
+                else:
+                    self._game_score -= 50
+                    banner.set_text(f"Score:{self._game_score}")
+                    artifact.remove_actor()
+            if gems.get_position().equals(max_y):
+                artifact.remove_actor
+>>>>>>> 7cd9b2465c232089094eca25dcb7ef0a0e293592:Greed/game/directory/director.py
 
         for gem in gems:
             gem.fall(max_y)
@@ -82,4 +120,12 @@ class Director:
         self._video_service.clear_buffer()
         actors = cast.get_all_actors()
         self._video_service.draw_actors(actors)
+<<<<<<< HEAD:Greed/game/directing/director.py
         self._video_service.flush_buffer()
+=======
+        self._video_service.flush_buffer()
+        if self._game_score <= 0:
+            VideoService.close_window()
+            VideoService._game_over()
+            self.start_game()
+>>>>>>> 7cd9b2465c232089094eca25dcb7ef0a0e293592:Greed/game/directory/director.py
