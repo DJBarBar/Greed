@@ -110,10 +110,10 @@ class VideoService:
         for x in range(0, self._width, self._cell_size):
             pyray.draw_line(x, 0, x, self._height, pyray.GRAY)
 
-    def _game_over(self):
-         """Displays a game over screen."""
-         root = tk.Tk()
-         T = tk.Label(root, text="Game Over!", height=5, width=25, font=("Arial", 60), fg="red", bg="black")
-         T.pack()
-         T.after(3000, lambda:root.destroy())
-         tk.mainloop()
+    #  def _game_over(self):
+    #         """Displays a game over screen."""
+    #         root = tk.Tk()
+    #         T = tk.Label(root, text="Game Over!", height=5, width=25, font=("Arial", 60), fg="red", bg="black")
+    #         T.pack()
+    #         T.after(3000, lambda:root.destroy())
+    #         tk.mainloop()
