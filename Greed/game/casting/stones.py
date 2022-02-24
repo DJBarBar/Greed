@@ -1,5 +1,6 @@
 from game.casting.actor import Actor
 from game.shared.point import Point
+import random
 
 class Stone(Actor):
     """
@@ -24,3 +25,7 @@ class Stone(Actor):
         x = self._position.get_x()
         y = (self._position.get_y() + 3) % max_y
         self._position = Point(x, y)
+
+    def change_x(self):
+        x = random.randint(1, 59) * 15
+        self._position = Point(x,self._position.get_y())

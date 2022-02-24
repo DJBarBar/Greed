@@ -68,11 +68,17 @@ class Director:
             gem.fall(max_y)
             if player.get_position().equals(gem.get_position()):
                 self._points += 10
+            if gem.get_position().get_y() == 0:
+                gem.change_x()
         #Subtracts points from the player's total if the player makes contact with a stone.
         for stone in stones:
             stone.fall(max_y)
             if player.get_position().equals(stone.get_position()):
                 self._points -= 50
+            if stone.get_position().get_y() == 0:
+                stone.change_x()
+
+        
 
     def _do_outputs(self, cast):
         """Draws the actors on the screen.
