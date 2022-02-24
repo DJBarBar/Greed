@@ -14,6 +14,7 @@ class Director:
         Args:
             keyboard_service (KeyboardService): An instance of KeyboardService.
             video_service (VideoService): An instance of VideoService.
+            _points (int) = The points total for the game.
         """
         self._keyboard_service = keyboard_service
         self._video_service = video_service
@@ -58,16 +59,16 @@ class Director:
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
         player.move_next(max_x, max_y)
-        
+        #If the points hit 0, then the 'game over' screen is displayed.
         if points <= 0:
             self._video_service._game_over()
             self._points = 500
-
+        #Adds points to the player's total if they make contact with a gem.
         for gem in gems:
             gem.fall(max_y)
             if player.get_position().equals(gem.get_position()):
                 self._points += 10
-
+        #Subtracts points from the player's total if the player makes contact with a stone.
         for stone in stones:
             stone.fall(max_y)
             if player.get_position().equals(stone.get_position()):

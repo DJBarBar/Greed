@@ -13,7 +13,7 @@ from game.services.video_service import VideoService
 from game.shared.color import Color
 from game.shared.point import Point
 
-
+#The Basic Variables for the program.
 FRAME_RATE = 12
 MAX_X = 900
 MAX_Y = 600
@@ -54,7 +54,7 @@ def main():
     player.set_position(position)
     cast.add_actor("player", player)
 
-
+    #Create the Gems
     for n in range(GEM_COUNT):
 
         x = random.randint(1, COLS - 1)
@@ -68,7 +68,7 @@ def main():
         gems.set_color(GREEN)
         gems.set_position(position)
         cast.add_actor("gems", gems)
-    
+    #Create the Stones
     for n in range(STONE_COUNT):
 
         x = random.randint(1, COLS - 1)
@@ -89,6 +89,6 @@ def main():
     director = Director(keyboard_service, video_service)
     director.start_game(cast)
 
-
+#Call main()
 if __name__ == "__main__":
     main()

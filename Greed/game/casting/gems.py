@@ -3,16 +3,15 @@ from game.shared.point import Point
 
 class Gem(Actor):
     """
-    An item of cultural or historical interest. 
+    An item of value and interest. 
     
-    The responsibility of an Artifact is to provide a message about itself.
+    The responsibility of a Gem is to provide the movement for itself.
 
     Attributes:
-        _message (string): A short description about the artifact.
+        none
     """
     def __init__(self):
         super().__init__()
-        self._message = ""
         
     def fall(self, max_y):
         """Moves the actor to its next position according to its velocity. Will wrap the position 
