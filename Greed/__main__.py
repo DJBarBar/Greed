@@ -25,8 +25,8 @@ CAPTION = "Greed"
 WHITE = Color(255, 255, 255)
 GREEN = Color(0,255,0)
 RED = Color(255,0,0)
-GEM_COUNT = 25
-STONE_COUNT = 20
+GEM_COUNT = 35
+STONE_COUNT = 30
 
 
 def main():
