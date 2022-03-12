@@ -54,6 +54,7 @@ class Director:
         gems = cast.get_actors("gems")
         stones = cast.get_actors("stones")
         points = self._points
+        
 
         banner.set_text("Points %s" % (points))
         max_x = self._video_service.get_width()
@@ -68,6 +69,7 @@ class Director:
             gem.fall(max_y)
             if player.get_position().equals(gem.get_position()):
                 self._points += 10
+                gem.change_x()
             if gem.get_position().get_y() == 0:
                 gem.change_x()
         #Subtracts points from the player's total if the player makes contact with a stone.
@@ -75,6 +77,7 @@ class Director:
             stone.fall(max_y)
             if player.get_position().equals(stone.get_position()):
                 self._points -= 50
+                gem.change_x()
             if stone.get_position().get_y() == 0:
                 stone.change_x()
 

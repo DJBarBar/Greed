@@ -29,3 +29,4 @@ class Gem(Actor):
     def change_x(self):
         x = random.randint(1, 59) * 15
         self._position = Point(x,self._position.get_y())
+        
