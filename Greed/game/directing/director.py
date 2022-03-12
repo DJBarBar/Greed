@@ -77,7 +77,7 @@ class Director:
             stone.fall(max_y)
             if player.get_position().equals(stone.get_position()):
                 self._points -= 50
-                gem.change_x()
+                stone.change_x()
             if stone.get_position().get_y() == 0:
                 stone.change_x()
 
